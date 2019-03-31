@@ -127,11 +127,10 @@ class AWSClient(object):
                     LOG.debug(e, kwargs)
                     if 'Throttling' in str(e):
                         time.sleep(1)
-                    elif 'AccessDenied' in str(e):
-                        done = True
-                    elif 'NoSuchTagSet' in str(e):
-                        done = True
-                except Exception:
+                        continue
+                    done = True
+                except Exception as e:
+                    LOG.debug(e, kwargs)
                     done = True
         if query:
             data = query.search(data)
