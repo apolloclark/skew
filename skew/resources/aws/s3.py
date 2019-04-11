@@ -95,6 +95,7 @@ class Bucket(AWSResource):
 
         # add addition attribute data
         for attr in self.Meta.attr_spec:
+            LOG.debug(attr)
             detail_op, param_name, detail_path, detail_key = attr
             params = {param_name: self._id}
             data = self._client.call(detail_op, **params)
@@ -103,6 +104,7 @@ class Bucket(AWSResource):
             if 'ResponseMetadata' in data:
                 del data['ResponseMetadata']
             self.data[detail_key] = data
+            LOG.debug(data)
 
     def __iter__(self):
         detail_op, param_name, detail_path = self.Meta.detail_spec
